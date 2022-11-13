@@ -1,3 +1,5 @@
+require './lib/wrapping_array.rb'
+
 class GameOfLife
   attr_accessor :data
 

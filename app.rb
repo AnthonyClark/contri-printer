@@ -1,5 +1,4 @@
 require './lib/console_printer.rb'
-require './lib/wrapping_array.rb'
 require './lib/game_of_life.rb'
 
 # require 'dotenv/load' TODO
@@ -25,5 +24,3 @@ class App
     end
   end
 end
-
-App.new.run(200, 0.05)

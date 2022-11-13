@@ -1,4 +1,10 @@
 require "minitest/test_task"
+require "./app.rb"
+
+desc "Run Game of Like in console with some defaults"
+task :run do
+  App.new.run(200, 0.05)
+end
 
 Minitest::TestTask.create(:test) do |t|
   t.libs << "test"
@@ -7,4 +13,4 @@ Minitest::TestTask.create(:test) do |t|
   t.test_globs = ["test/**/*_test.rb"]
 end
 
-task :default => :test
+task :default => :run
