@@ -2,24 +2,28 @@ require './console_printer.rb'
 require './wrapping_array.rb'
 require './game_of_life.rb'
 
+require 'dotenv/load'
+
 class App
   def initialize
-    @rows = 20
-    @cols = 52
-    @on = 1
-    @off = 0
+    rows = 7
+    cols = 52
+
     @printer = ConsolePrinter.new
-    data = WrappingArray.new(@rows) { WrappingArray.new(@cols) { [@on, @off].sample } }
-    @processor = GameOfLife.new(data)
+    @game = GameOfLife.new(rows, cols)
+    5.times do |i|
+      @game.add_glider(1, 10 * i + 1)
+    end
+    @printer.print(@game.data)
   end
 
   def run(ticks, sleep_time)
     ticks.times do
-      @processor.tick
-      @printer.print(@processor.data)
+      @game.tick
+      @printer.print(@game.data)
       sleep sleep_time
     end
   end
 end
 
-App.new.run(10, 1)
+App.new.run(100, 0.1)

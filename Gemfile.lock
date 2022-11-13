@@ -1,0 +1,21 @@
+GEM
+  remote: https://rubygems.org/
+  specs:
+    addressable (2.8.1)
+      public_suffix (>= 2.0.2, < 6.0)
+    dotenv (2.8.1)
+    git (1.12.0)
+      addressable (~> 2.8)
+      rchardet (~> 1.8)
+    public_suffix (5.0.0)
+    rchardet (1.8.0)
+
+PLATFORMS
+  arm64-darwin-21
+
+DEPENDENCIES
+  dotenv
+  git
+
+BUNDLED WITH
+   2.3.7

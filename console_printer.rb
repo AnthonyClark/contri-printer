@@ -6,7 +6,7 @@ class ConsolePrinter
     system 'clear'
     buffer = data.map do |row|
       row.map do |cell|
-        "#{cell} "
+        "#{cell == 0 ? '.' : 'X' } "
       end.join.strip
     end.join("\n")
 

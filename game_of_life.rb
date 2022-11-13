@@ -1,16 +1,33 @@
 class GameOfLife
-  def initialize(data)
-    @data = data
-    @rows = @data.size
-    @cols = @data.first.size
+  attr_accessor :data
+
+  def initialize(rows, cols)
+    @rows = rows
+    @cols = cols
+    @on = 1
+    @off = 0
+    @data = WrappingArray.new(@rows) { WrappingArray.new(@cols) { @off } }
   end
 
-  def data
-    @data
+  # Fill @data with random 1s and 0s
+  def randomize
+    @data = @data.map do |row|
+      row.map do |cell|
+        [@on, @off].sample
+      end
+    end
+  end
+
+  def add_glider(x, y) # x and y are the coordinates of the center of the glider
+    @data[x - 1][y] = 1
+    @data[x][y + 1] = 1
+    @data[x + 1][y - 1] = 1
+    @data[x + 1][y] = 1
+    @data[x + 1][y + 1] = 1
   end
 
   def tick
-    @data = @data.map.with_index do |row, r|
+      @data = @data.map.with_index do |row, r|
       row.map.with_index do |cell, c|
         neighbors = 0
         neighbors += @data[r - 1][c - 1] if r > 0 && c > 0
