@@ -14,7 +14,7 @@ class App
     5.times do |i|
       @game.add_glider(1, 10 * i + 1)
     end
-    @printer.print(@game.data)
+    # @printer.print(@game.data)
   end
 
   def run(ticks, sleep_time)
@@ -26,6 +26,4 @@ class App
   end
 end
 
-App.new.run(10, 2)
-
-# TODO: Why do gliders now fail?
+App.new.run(200, 0.05)

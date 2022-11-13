@@ -12,7 +12,7 @@ Using ASDF to manage Ruby version
 
 ## TODO:
 - [x] Basic Game of Life working in console
-- [ ] Wrapping edges
+- [x] Wrapping edges
 - [ ] Git commit printer
     - [ ] Shading instead of 0 or 1
 - [ ] Persist game state between program execution

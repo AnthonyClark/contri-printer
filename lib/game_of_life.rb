@@ -27,6 +27,7 @@ class GameOfLife
   end
 
   def tick
+    new_data = WrappingArray.new(@rows) { WrappingArray.new(@cols) { @off } }
     @data.each_with_index do |row, r|
       row.each_with_index do |cell, c|
         neighbors = 0
@@ -39,8 +40,8 @@ class GameOfLife
         neighbors += @data[r + 1][c]
         neighbors += @data[r + 1][c + 1]
 
-        # apply rules
-        @data[r][c] = if cell == 0 && neighbors == 3
+        # compute next state
+        new_data[r][c] = if cell == 0 && neighbors == 3
           1
         elsif cell == 1 && (neighbors < 2 || neighbors > 3)
           0
@@ -49,5 +50,6 @@ class GameOfLife
         end
       end
     end
+    @data = new_data
   end
 end
