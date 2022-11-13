@@ -24,3 +24,16 @@ Using ASDF to manage Ruby version
 ssh_key
 git_email
 git_repo
+
+
+### Notes:
+These work for second user done manually, not yet all working through Ruby-Git
+```sh
+GIT_SSH_COMMAND='ssh -i ~/.ssh/id_contrigraph_user_ed25519 -o IdentitiesOnly=yes' git clone git@github.com:contribgraph/display.git
+
+GIT_SSH_COMMAND='ssh -i ~/.ssh/id_contrigraph_user_ed25519 -o IdentitiesOnly=yes' git push
+
+git commit --author="contribgraph <117421137+contribgraph@users.noreply.github.com>" --allow-empty -m "whatever"
+```
+
+Oh dear I think the repo has to be deleted to clear contributions from the graph :(
