@@ -27,20 +27,20 @@ class GameOfLife
   end
 
   def tick
-      @data = @data.map.with_index do |row, r|
-      row.map.with_index do |cell, c|
+    @data.each_with_index do |row, r|
+      row.each_with_index do |cell, c|
         neighbors = 0
-        neighbors += @data[r - 1][c - 1] if r > 0 && c > 0
-        neighbors += @data[r - 1][c] if r > 0
-        neighbors += @data[r - 1][c + 1] if r > 0 && c < @cols - 1
-        neighbors += @data[r][c - 1] if c > 0
-        neighbors += @data[r][c + 1] if c < @cols - 1
-        neighbors += @data[r + 1][c - 1] if r < @rows - 1 && c > 0
-        neighbors += @data[r + 1][c] if r < @rows - 1
-        neighbors += @data[r + 1][c + 1] if r < @rows - 1 && c < @cols - 1
+        neighbors += @data[r - 1][c - 1]
+        neighbors += @data[r - 1][c]
+        neighbors += @data[r - 1][c + 1]
+        neighbors += @data[r][c - 1]
+        neighbors += @data[r][c + 1]
+        neighbors += @data[r + 1][c - 1]
+        neighbors += @data[r + 1][c]
+        neighbors += @data[r + 1][c + 1]
 
         # apply rules
-        if cell == 0 && neighbors == 3
+        @data[r][c] = if cell == 0 && neighbors == 3
           1
         elsif cell == 1 && (neighbors < 2 || neighbors > 3)
           0

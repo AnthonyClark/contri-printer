@@ -7,6 +7,7 @@ GEM
     git (1.12.0)
       addressable (~> 2.8)
       rchardet (~> 1.8)
+    minitest (5.16.3)
     public_suffix (5.0.0)
     rchardet (1.8.0)
 
@@ -16,6 +17,7 @@ PLATFORMS
 DEPENDENCIES
   dotenv
   git
+  minitest
 
 BUNDLED WITH
    2.3.7

@@ -1,8 +1,8 @@
-require './console_printer.rb'
-require './wrapping_array.rb'
-require './game_of_life.rb'
+require './lib/console_printer.rb'
+require './lib/wrapping_array.rb'
+require './lib/game_of_life.rb'
 
-require 'dotenv/load'
+# require 'dotenv/load' TODO
 
 class App
   def initialize
@@ -26,4 +26,6 @@ class App
   end
 end
 
-App.new.run(100, 0.1)
+App.new.run(10, 2)
+
+# TODO: Why do gliders now fail?
