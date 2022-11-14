@@ -1,6 +1,8 @@
 require "minitest/test_task"
 require "./app.rb"
 require './lib/contrib_printer.rb'
+require 'pry'
+require 'pry-byebug'
 
 desc "Run Game of Like in console with some defaults"
 task :run do
@@ -16,6 +18,11 @@ namespace :git do
   desc "Clear git repo"
   task :clear do
     ContribPrinter.new.reset_repo
+  end
+
+  desc "Test octokit"
+  task :octo do
+    ContribPrinter.new.test_octokit
   end
 end
 
