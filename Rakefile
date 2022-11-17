@@ -1,23 +1,24 @@
 require "minitest/test_task"
 require "./app.rb"
-require './lib/contrib_printer.rb'
 require 'pry'
 require 'pry-byebug'
 
-desc "Run Game of Like in console with some defaults"
+desc "Run Game of Life in console with some defaults"
+task :console do
+  App.new.run(ticks: 200, sleep_time: 0.05)
+end
+
+desc "Run Game of Life mocking GH contributions in console"
 task :run do
-  App.new.run(200, 0.05)
+  runner = App.new(printer: ContribPrinter.new(shade: true))
+  10.times { runner.game.tick }
+  runner.print_current_state
 end
 
 namespace :git do
-  desc "Run git test example"
-  task :test do
-    ContribPrinter.new.push
-  end
-
-  desc "Test octokit"
-  task :octo do
-    ContribPrinter.new.test_octokit
+  desc "demo call"
+  task :demo do
+    ContribPrinter.new.demo
   end
 
   desc "Delete display github repo"
