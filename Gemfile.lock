@@ -10,6 +10,8 @@ GEM
       faraday-net_http (>= 2.0, < 3.1)
       ruby2_keywords (>= 0.0.4)
     faraday-net_http (3.0.2)
+    faraday-retry (2.0.0)
+      faraday (~> 2.0)
     git (1.12.0)
       addressable (~> 2.8)
       rchardet (~> 1.8)
@@ -36,6 +38,7 @@ PLATFORMS
 
 DEPENDENCIES
   dotenv
+  faraday-retry
   git
   minitest
   octokit

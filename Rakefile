@@ -10,19 +10,19 @@ task :run do
 end
 
 namespace :git do
-  desc "Run git example"
-  task :run do
-    ContribPrinter.new.print
-  end
-
-  desc "Clear git repo"
-  task :clear do
-    ContribPrinter.new.reset_repo
+  desc "Run git test example"
+  task :test do
+    ContribPrinter.new.push
   end
 
   desc "Test octokit"
   task :octo do
     ContribPrinter.new.test_octokit
+  end
+
+  desc "Delete display github repo"
+  task :delete do
+    ContribPrinter.new.clear_display
   end
 end
 
