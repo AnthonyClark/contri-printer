@@ -41,7 +41,7 @@ class ContribPrinter
 
   def data_to_commits(data)
     # Where does the last column start?
-    current_weekday_index = Date.today.wday
+    current_weekday_index = Date.today.wday + 1
 
     # Days between today and start of graph
     offset = (52 * 7) + current_weekday_index
@@ -95,15 +95,11 @@ class ContribPrinter
   end
 
   def commit(date: date_days_ago(rand(365)))
-    # TODO: Custom date for commit
-    # TODO: ENV or config the author variable
     # TODO: Prevent git including pairing info with global git user conf
-
-    author = "contribgraph <117421137+contribgraph@users.noreply.github.com>"
     @git_repo.commit(
       "Rand Commit: #{Time.now.utc}",
       allow_empty: true,
-      author: author,
+      author: ENV['GIT_CONTRIBUTER'],
       date: date
     )
   end
