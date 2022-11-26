@@ -8,10 +8,26 @@ class GameOfLife
     @cols = cols
     @on = 1
     @off = 0
-    @data = WrappingArray.new(@rows) { WrappingArray.new(@cols) { @off } }
+    @data = data || WrappingArray.new(@rows) { WrappingArray.new(@cols) { @off } }
   end
 
-  # Fill @data with random 1s and 0s
+  def self.from_data(data)
+    rows = data.length
+    cols = data[0].length
+    game = GameOfLife.new(rows, cols)
+    game.fill_from_data(data)
+    game
+  end
+
+  # TODO: Simplify if we get rid of wrapping array
+  def fill_from_data(data)
+    @data.each_with_index do |row, i|
+      row.each_with_index do |col, j|
+        @data[i][j] = data[i][j]
+      end
+    end
+  end
+
   def randomize
     @data = @data.map do |row|
       row.map do |cell|

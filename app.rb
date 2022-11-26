@@ -5,17 +5,26 @@ require './lib/game_of_life.rb'
 class App
   attr_accessor :game
 
-  def initialize(rows: 7, cols: 53, printer: ConsolePrinter.new)
+  def initialize(rows: 7, cols: 53, printer: ConsolePrinter.new, game: nil)
     @printer = printer
-    @game = GameOfLife.new(rows, cols)
-    5.times do |i|
-      @game.add_glider(1, 10 * i + 1)
+    if game.nil?
+      @game = GameOfLife.new(rows, cols)
+      5.times { |i| @game.add_glider(1, 10 * i + 1) }
+    else
+      @game = game
     end
   end
 
   # initialize new game from file
-  def self.from_file(filename)
-    # TODO
+  def self.github(filename)
+    printer = ContribPrinter.new
+    printer.commits_to_data
+    game = GameOfLife
+  end
+
+  def self.from_scratch(rows: 7, cols: 53, printer: ConsolePrinter.new)
+    App.new(rows: rows, cols: cols, printer: printer)
+
   end
 
   def print_current_state

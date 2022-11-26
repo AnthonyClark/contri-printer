@@ -1,5 +1,6 @@
 require "minitest/test_task"
 require "./app.rb"
+require_relative 'lib/github_service.rb'
 require 'pry'
 require 'pry-byebug'
 
@@ -8,11 +9,21 @@ task :console do
   App.new.run(ticks: 200, sleep_time: 0.05)
 end
 
-desc "Run Game of Life mocking GH contributions in console"
+desc "Run Game of Life creating contributions in console"
 task :run do
   runner = App.new(printer: ContribPrinter.new(shade: true))
   10.times { runner.game.tick }
   runner.print_current_state
+end
+
+desc "Run step of GoL from existing GH repo"
+task :step do
+  data = GithubService.new.get_current_data
+  ConsolePrinter.new.print(data)
+
+  # printer = ContribPrinter.new(shade: true)
+  # printer.clear_display
+  # printer.print(data)
 end
 
 namespace :git do

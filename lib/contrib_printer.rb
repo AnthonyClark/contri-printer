@@ -9,7 +9,6 @@ GithubRepo = Struct.new(:full_name, :ssh_url, keyword_init: true)
 
 class ContribPrinter
   def initialize(shade: false)
-    config_git
     @github_repo = nil
     @git_repo = nil
     @local_path = nil
@@ -25,11 +24,11 @@ class ContribPrinter
     delete_repo(get_current_repo)
   end
 
-  def demo
-    game = GameOfLife.new(7, 53)
-    game.add_glider(1, 1)
-    print(game.data)
-  end
+  # def demo
+  #   game = GameOfLife.new(7, 53)
+  #   game.add_glider(1, 1)
+  #   print(game.data)
+  # end
 
   # TODO: Enforce rows and cols to be 53 and 7 respectively for github graph
   def print(data)
@@ -45,7 +44,7 @@ class ContribPrinter
     current_weekday_index = Date.today.wday
 
     # Days between today and start of graph
-    offset = (52 * 7) +  current_weekday_index
+    offset = (52 * 7) + current_weekday_index
 
     # Go through each commit, column by column not row by row
     (0..52).each do |week|
@@ -77,10 +76,6 @@ class ContribPrinter
     FileUtils.mkdir_p(@local_path)
     log("Created tmp path: #{@local_path}")
     @git_repo = Git.init(@local_path)
-  end
-
-  def demo_print
-    10.times { commit(nil) }
   end
 
   def delete_repo(repo_name)
@@ -121,11 +116,5 @@ class ContribPrinter
 
   def log(message)
     puts "#{Time.now}: #{message}"
-  end
-
-  def config_git
-    Git.configure do |config|
-      config.git_ssh = './custom_ssh.sh'
-    end
   end
 end
