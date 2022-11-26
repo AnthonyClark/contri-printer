@@ -2,15 +2,13 @@ require 'dotenv/load'
 require 'octokit'
 require 'git'
 
-# TODO: Rename to GitService or something more appropriate
-class GithubService
+class GitService
   SECONDS_PER_DAY = 60 * 60 * 24
   HIGH = 10
   LOW = 1
 
   def initialize
     # TODO: Fix git gem use of custom ssh script
-    # GithubService.config_git
     @github = Octokit::Client.new(access_token: ENV['GITHUB_TOKEN'])
     @current_gh_repo = nil
   end
@@ -41,7 +39,7 @@ class GithubService
         index = (week * 7) + day
 
         count = commit_counts[first_day_offset - index] || 0
-        data[day][week] = (count >= GithubService::HIGH) ? 1 : 0  
+        data[day][week] = (count >= GitService::HIGH) ? 1 : 0
       end
     end
 
@@ -50,7 +48,7 @@ class GithubService
 
   # Method that gets number of days between two Time objects
   def days_since(t)
-    ((Time.now - t) / (GithubService::SECONDS_PER_DAY)).floor
+    ((Time.now - t) / (GitService::SECONDS_PER_DAY)).floor
   end
 
   private

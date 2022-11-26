@@ -18,7 +18,7 @@ end
 
 desc "Run step of GoL from existing GH repo"
 task :step do
-  data = GithubService.new.get_current_data
+  data = GitService.new.get_current_data
   ConsolePrinter.new.print(data)
 
   # printer = ContribPrinter.new(shade: true)
