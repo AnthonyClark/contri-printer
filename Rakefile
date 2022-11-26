@@ -11,7 +11,7 @@ end
 
 desc "Run Game of Life creating contributions in console"
 task :run do
-  runner = App.new(printer: ContribPrinter.new(shade: true))
+  runner = App.new(printer: ContribPrinter.new)
   10.times { runner.game.tick }
   runner.print_current_state
 end
@@ -27,11 +27,6 @@ task :step do
 end
 
 namespace :git do
-  desc "demo call"
-  task :demo do
-    ContribPrinter.new.demo
-  end
-
   desc "Delete display github repo"
   task :delete do
     ContribPrinter.new.clear_display

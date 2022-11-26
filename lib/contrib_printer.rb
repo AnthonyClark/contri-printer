@@ -8,29 +8,19 @@ require 'Date'
 GithubRepo = Struct.new(:full_name, :ssh_url, keyword_init: true)
 
 class ContribPrinter
-  def initialize(shade: false)
+  def initialize()
     @github_repo = nil
     @git_repo = nil
     @local_path = nil
     @client = Octokit::Client.new(:access_token => ENV['GITHUB_TOKEN'])
-    @on, @off = 1, 0
-    if shade
-      @on = 10
-      @off = 1
-    end
+    @on = 10
+    @off = 1
   end
 
   def clear_display
     delete_repo(get_current_repo)
   end
 
-  # def demo
-  #   game = GameOfLife.new(7, 53)
-  #   game.add_glider(1, 1)
-  #   print(game.data)
-  # end
-
-  # TODO: Enforce rows and cols to be 53 and 7 respectively for github graph
   def print(data)
     init_local_repo
 
@@ -40,13 +30,12 @@ class ContribPrinter
   end
 
   def data_to_commits(data)
-    # Where does the last column start?
-    current_weekday_index = Date.today.wday + 1
+    current_weekday_index = Date.today.wday + 1 # Last column on GH, weeks start Sunday
 
     # Days between today and start of graph
     offset = (52 * 7) + current_weekday_index
 
-    # Go through each commit, column by column not row by row
+    # Go through each commit, column by column (week by week) not row by row
     (0..52).each do |week|
       (0..6).each do |day|
         index = (week * 7) + day

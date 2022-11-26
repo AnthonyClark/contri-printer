@@ -1,14 +1,17 @@
 # Setup
 
 ## Ruby
-Using ASDF to manage Ruby version
+Using ASDF to manage Ruby version.
 
 `bundle install` to setup gems as required
-`rake run` to run
-`rake test` to test
+`rake run` to run from scratch
+`rake step` to run a tick iteration
+`rake test` to run any tests
 
 ## dotenv (.env file in repo root)
 `GITHUB_TOKEN=your_token_here`
+`SSH_KEY_PATH=~/.ssh/path_to_ssh_key`
+`GIT_CONTRIBUTER=some name <email@example.com>`
 
 ## TODO:
 - [x] Basic Game of Life working in console
@@ -22,12 +25,11 @@ Using ASDF to manage Ruby version
     - [x] Actually display a frame on github
     - [x] Shading instead of 0 or 1
     - [ ] Clean up abstractions
-- [ ] Persist game state between program execution so it can run once daily etc.
+- [x] Persist game state between program execution so it can run once daily etc.
 - [ ] Schedule execution
 - [ ] DotEnv Configs to make it deployable
 - [ ] Deploy it somewhere?
 - [ ] Screenshot history?
-
 - [ ] Different input to printer? Maybe small bitmap image shaded in?
 
 ### Notes:
