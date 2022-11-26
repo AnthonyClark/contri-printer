@@ -3,11 +3,9 @@ require './lib/wrapping_array.rb'
 class GameOfLife
   attr_accessor :data
 
-  def initialize(rows, cols)
+  def initialize(rows: 7, cols: 53)
     @rows = rows
     @cols = cols
-    @on = 1
-    @off = 0
     @data = data || WrappingArray.new(@rows) { WrappingArray.new(@cols) { @off } }
   end
 
@@ -31,7 +29,7 @@ class GameOfLife
   def randomize
     @data = @data.map do |row|
       row.map do |cell|
-        [@on, @off].sample
+        [1, 0].sample
       end
     end
   end

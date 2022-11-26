@@ -1,6 +1,7 @@
+require_relative "app.rb"
+require_relative 'lib/game_of_life.rb'
+require_relative 'lib/git_service.rb'
 require "minitest/test_task"
-require "./app.rb"
-require_relative 'lib/github_service.rb'
 require 'pry'
 require 'pry-byebug'
 
@@ -8,6 +9,12 @@ desc "Run Game of Life in console with some defaults"
 task :console do
   App.new.run(ticks: 200, sleep_time: 0.05)
 end
+
+# Initialize
+
+# Run tick
+
+# Clear it all
 
 desc "Run Game of Life creating contributions in console"
 task :run do
@@ -19,9 +26,17 @@ end
 desc "Run step of GoL from existing GH repo"
 task :step do
   data = GitService.new.get_current_data
-  ConsolePrinter.new.print(data)
 
-  # printer = ContribPrinter.new(shade: true)
+  printer = ConsolePrinter.new
+  printer.print(data)
+
+  game = GameOfLife.new
+  game.fill_from_data(data)
+
+  5.times { game.tick }
+  printer.print(game.data)
+
+  # printer = ContribPrinter.new
   # printer.clear_display
   # printer.print(data)
 end

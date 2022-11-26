@@ -29,8 +29,6 @@ class GitService
       days_since(commit.author.date)
     end.tally
 
-    binding.pry
-
     first_day_offset = commit_counts.keys.max
     data = Array.new(7) { Array.new(53, 0) }
 
@@ -69,11 +67,4 @@ class GitService
   def local_repo_path
     "/tmp/display_repo/#{@current_gh_repo[:name]}/"
   end
-
-  # def self.config_git
-  #   Git.configure do |config|
-  #     # config.git_ssh = './custom_ssh.sh'
-  #     config.git_ssh = './custom_ssh.sh'
-  #   end
-  # end
 end
