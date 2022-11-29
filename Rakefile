@@ -17,16 +17,14 @@ end
 
 desc "Run step of GoL from existing GH repo"
 task :step do
+  # TODO: Implement starting from existing execution in Runner API
   data = GitService.new.get_current_data
-
   contributions_printer = ContribPrinter.new
-  console = ConsolePrinter.new
 
   game = GameOfLife.new
   game.fill_from_data(data)
   game.tick
 
-  console.print(game.data)
   contributions_printer.clear_display
   contributions_printer.print(game.data)
 end

@@ -1,18 +1,33 @@
+# What is this?
+
+Just having some fun displaying Conway's Game of Life on the Github Contributions graph.
+
 # Setup
 
 ## Ruby
 Using ASDF to manage Ruby version.
 
 `bundle install` to setup gems as required
-`rake run` to run from scratch
+`rake start` to run from scratch
 `rake step` to run a tick iteration
 `rake git:delete` to delete github display repo
 `rake test` to run any tests
 
 ## dotenv (.env file in repo root)
-`GITHUB_TOKEN=your_token_here`
-`SSH_KEY_PATH=~/.ssh/path_to_ssh_key`
-`GIT_CONTRIBUTER=some name <email@example.com>`
+```
+GITHUB_TOKEN=your_token_here
+SSH_KEY_PATH=~/.ssh/path_to_ssh_key
+GIT_CONTRIBUTER=some name <email@example.com>
+```
+
+## Generating demo gif
+
+Using [vhs](https://github.com/charmbracelet/vhs), a tool built in Go to easily record and share CLI demos.
+
+```
+cd docs
+vhs < console.tape
+```
 
 ## TODO:
 - [x] Basic Game of Life working in console
@@ -27,12 +42,11 @@ Using ASDF to manage Ruby version.
     - [x] Shading instead of 0 or 1
     - [x] Functional `step` on github display
     - [ ] Re-use the same local git repo as buffer for read and write
-- [x] Persist game state between program execution so it can run once daily etc.
+    - [ ] Simplify runner interface allowing start from existing execution
+- [ ] Record VHS gif when I can actually install the dependencies properly
 - [ ] Schedule execution
-- [ ] DotEnv Configs to make it deployable
 - [ ] Deploy it somewhere?
 - [ ] Screenshot history?
-- [ ] Different input to printer? Maybe small bitmap image shaded in?
 
 ### Notes:
 These work for second user done manually, not yet all working through Ruby-Git
