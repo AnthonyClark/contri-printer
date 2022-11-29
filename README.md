@@ -1,6 +1,8 @@
 # What is this?
 
-Just having some fun displaying Conway's Game of Life on the Github Contributions graph.
+Just having some fun displaying Conway's Game of Life on the Github Contributions graph. I use another github account as the display: https://github.com/contribgraph
+
+![](https://github.com/AnthonyClark/contri-printer/blob/main/docs/example_graph_screenshot.png)
 
 # Setup
 
