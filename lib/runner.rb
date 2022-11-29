@@ -1,9 +1,8 @@
-require './lib/console_printer.rb'
-require './lib/contrib_printer.rb'
-require './lib/game_of_life.rb'
+require_relative 'console_printer.rb'
+require_relative 'contrib_printer.rb'
+require_relative 'game_of_life.rb'
 
-# TODO: Rename to Runner, move to Lib, use for Console printing probably
-class App
+class Runner
   attr_accessor :game
 
   def initialize(rows: 7, cols: 53, printer: ConsolePrinter.new, game: nil)

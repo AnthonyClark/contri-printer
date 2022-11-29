@@ -1,18 +1,16 @@
-require_relative "app.rb"
-require_relative 'lib/game_of_life.rb'
-require_relative 'lib/git_service.rb'
+require_relative "./lib/runner.rb"
 require "minitest/test_task"
 require 'pry'
 require 'pry-byebug'
 
 desc "Run Game of Life in console with some defaults"
 task :console do
-  App.new.run(ticks: 200, sleep_time: 0.05)
+  Runner.new.run(ticks: 200, sleep_time: 0.05)
 end
 
 desc "Start new Game of Life creating contributions on GitHub"
 task :start do
-  runner = App.new(printer: ContribPrinter.new)
+  runner = Runner.new(printer: ContribPrinter.new)
   runner.tick(times: rand(100))
   runner.print_current_state
 end
