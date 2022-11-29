@@ -6,7 +6,7 @@ class GameOfLife
   def initialize(rows: 7, cols: 53)
     @rows = rows
     @cols = cols
-    @data = data || WrappingArray.new(@rows) { WrappingArray.new(@cols) { @off } }
+    @data = data || WrappingArray.new(@rows) { WrappingArray.new(@cols) { 0 } }
   end
 
   def self.from_data(data)

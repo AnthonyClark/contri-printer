@@ -24,7 +24,8 @@ Using ASDF to manage Ruby version.
     - [x] Mock the graph locally in console
     - [x] Actually display a frame on github
     - [x] Shading instead of 0 or 1
-    - [ ] Clean up abstractions
+    - [ ] Functional `step` on github display
+    - [ ] Re-use the same local git repo as buffer for read and write
 - [x] Persist game state between program execution so it can run once daily etc.
 - [ ] Schedule execution
 - [ ] DotEnv Configs to make it deployable
