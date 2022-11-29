@@ -10,16 +10,10 @@ task :console do
   App.new.run(ticks: 200, sleep_time: 0.05)
 end
 
-# Initialize
-
-# Run tick
-
-# Clear it all
-
-desc "Run Game of Life creating contributions in console"
-task :run do
+desc "Start new Game of Life creating contributions on GitHub"
+task :start do
   runner = App.new(printer: ContribPrinter.new)
-  10.times { runner.game.tick }
+  runner.tick(times: rand(100))
   runner.print_current_state
 end
 
@@ -27,18 +21,16 @@ desc "Run step of GoL from existing GH repo"
 task :step do
   data = GitService.new.get_current_data
 
-  printer = ConsolePrinter.new
-  printer.print(data)
+  contributions_printer = ContribPrinter.new
+  console = ConsolePrinter.new
 
   game = GameOfLife.new
   game.fill_from_data(data)
+  game.tick
 
-  5.times { game.tick }
-  printer.print(game.data)
-
-  # printer = ContribPrinter.new
-  # printer.clear_display
-  # printer.print(data)
+  console.print(game.data)
+  contributions_printer.clear_display
+  contributions_printer.print(game.data)
 end
 
 namespace :git do

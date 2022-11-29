@@ -10,7 +10,7 @@ class App
     @printer = printer
     if game.nil?
       @game = GameOfLife.new(rows: rows, cols: cols)
-      5.times { |i| @game.add_glider(1, 10 * i + 1) }
+      5.times { |i| @game.add_glider(1 + rand(5), 10 * i + 1) }
     else
       @game = game
     end
@@ -26,5 +26,9 @@ class App
       @printer.print(@game.data)
       sleep sleep_time
     end
+  end
+
+  def tick(times: 1)
+    times.times { game.tick }
   end
 end

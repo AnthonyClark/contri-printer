@@ -79,8 +79,8 @@ class GitService
   def push_to_display
     @github_repo = @github.create_repo("display_#{SecureRandom.hex(3)}")
     @git_repo_write.add_remote('origin', @github_repo[:ssh_url])
+    # TODO: run_git_command uses path to one local repo. When re-use of the same repo is implemented then use that.
     system("cd #{@git_repo_write.dir.path} && GIT_SSH_COMMAND='ssh -i ~/.ssh/id_contrigraph_user_ed25519 -o IdentitiesOnly=yes' git push origin main --force")
-    # run_git_command("push origin main --force")
   end
 
   def commit(date: date_days_ago(rand(365)))
