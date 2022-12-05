@@ -19,7 +19,8 @@ Using ASDF to manage Ruby version.
 ```
 GITHUB_TOKEN=your_token_here
 SSH_KEY_PATH=~/.ssh/path_to_ssh_key
-GIT_CONTRIBUTER=some name <email@example.com>
+GIT_NAME=some name
+GIT_EMAIL=email@example.com
 ```
 
 ## Generating demo gif

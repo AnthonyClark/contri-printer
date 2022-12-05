@@ -14,7 +14,11 @@ class GitService
     # TODO: Fix git gem use of custom ssh script
     # TODO: Use a config rather than instance variables for ENV things
     @github = Octokit::Client.new(access_token: ENV['GITHUB_TOKEN'])
-    @author = ENV['GIT_CONTRIBUTER']
+    @author = {
+      name: ENV['GIT_NAME'],
+      email: ENV['GIT_EMAIL'],
+      author_string: "#{ENV['GIT_NAME']} <#{ENV['GIT_EMAIL']}>"
+    }
     @ssh_key_path = ENV['SSH_KEY_PATH']
   end
 
@@ -84,13 +88,8 @@ class GitService
   end
 
   def commit(date: date_days_ago(rand(365)))
-    # TODO: Prevent git including pairing info with global git user conf
-    @git_repo_write.commit(
-      "Time: #{Time.now.utc}",
-      allow_empty: true,
-      author: @author,
-      date: date
-    )
+    message = "Date: #{date}"
+    system("cd #{@git_repo_write.dir.path} && GIT_COMMITTER_NAME=\"#{@author[:name]}\" GIT_COMMITTER_EMAIL=\"#{@author[:email]}\" git commit -m \"#{message}\" --allow-empty --date \"#{date}\" --author \"#{@author[:author_string]}\"")
   end
 
   def date_days_ago(days)
