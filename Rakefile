@@ -15,6 +15,12 @@ task :start do
   runner.print_current_state
 end
 
+desc "Print current state of GoL from existing GH repo"
+task :print_current do
+  data = GitService.new.get_current_data
+  ConsolePrinter.new.print(data)
+end
+
 desc "Run step of GoL from existing GH repo"
 task :step do
   # TODO: Implement starting from existing execution in Runner API
@@ -43,4 +49,4 @@ Minitest::TestTask.create(:test) do |t|
   t.test_globs = ["test/**/*_test.rb"]
 end
 
-task :default => :run
+task :default => :step
