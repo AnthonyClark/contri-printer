@@ -16,18 +16,18 @@ class GitRepo
   end
 
   def prepare_read_mode(remote_ssh_url)
-    syscall_return("git init")
-    if syscall("git remote add origin #{remote_ssh_url}") == false
-      syscall("git remote set-url origin #{remote_ssh_url}")
+    cmd("git init")
+    if cmd("git remote add origin #{remote_ssh_url}").start_with?("error")
+      cmd("git remote set-url origin #{remote_ssh_url}")
     end
-    syscall("git fetch origin --quiet")
-    syscall("git reset --hard origin/main")
-    syscall("git clean -f")
+    cmd("git fetch origin --quiet")
+    cmd("git reset --hard origin/main")
+    cmd("git clean -f")
     @mode = GitRepo::READ_MODE
   end
 
   def log_commit_dates(limit = 1000)
-    log_lines = syscall_return("git log --date=iso --pretty=format:'%ad' -n #{limit}")
+    log_lines = cmd("git log --date=iso --pretty=format:'%ad' -n #{limit}")
     log_lines.split("\n").map do |date|
       Time.parse(date)
     end
@@ -35,8 +35,8 @@ class GitRepo
 
   def prepare_write_mode(remote_ssh_url)
     FileUtils.rm_rf(Dir.glob("#{path}/*", File::FNM_DOTMATCH))
-    syscall_return("git init")
-    syscall("git remote add origin #{remote_ssh_url}")
+    cmd("git init")
+    cmd("git remote add origin #{remote_ssh_url}")
     @mode = GitRepo::WRITE_MODE
   end
 
@@ -48,21 +48,17 @@ class GitRepo
       "GIT_COMMITTER_NAME" => @author[:name],
       "GIT_COMMITTER_EMAIL" => @author[:email]
     }
-    syscall("git commit -m \"#{message}\" --allow-empty --date \"#{date}\" --author \"#{@author[:author_string]}\" --quiet", env_opt)
+    cmd("git commit -m \"#{message}\" --allow-empty --date \"#{date}\" --author \"#{@author[:author_string]}\" --quiet", env_opt)
   end
 
   def push
     env_opt = { "GIT_SSH_COMMAND" => "ssh -i ~/.ssh/id_contrigraph_user_ed25519 -o IdentitiesOnly=yes" }
-    syscall(" git push origin main --force --quiet", env_opt)
+    cmd(" git push origin main --force --quiet", env_opt)
   end
 
   private
-  def syscall(cmd, envs = {})
+  def cmd(cmd, envs = {})
     env = envs.map { |k, v| "#{k}=\"#{v}\"" }.join(' ')
-    system("cd #{@path} && #{env} #{cmd}")
-  end
-
-  def syscall_return(cmd)
-    `cd #{@path} && #{cmd}`
+    `cd #{@path} && #{env} #{cmd}`
   end
 end
